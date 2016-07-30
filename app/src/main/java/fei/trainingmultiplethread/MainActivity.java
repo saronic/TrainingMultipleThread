@@ -43,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 sleep(4000);
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-                mImageView.setImageBitmap(bitmap);
+                final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                mImageView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mImageView.setImageBitmap(bitmap);
+                    }
+                });
             }
         }).start();
     }
