@@ -2,8 +2,8 @@ package fei.trainingmultiplethread;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,16 +39,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadImage() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        for (int i = 1; i < 11; i++) {
-            sleep();
-        }
-        mImageView.setImageBitmap(bitmap);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sleep(4000);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                mImageView.setImageBitmap(bitmap);
+            }
+        }).start();
     }
 
-    private void sleep() {
+    private void sleep(long millisecond) {
         try {
-            Thread.sleep(mSleepTime);
+            Thread.sleep(millisecond);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
